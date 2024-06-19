@@ -11,14 +11,22 @@ namespace MR
 {
 	public class Character : ObjectRPG
 	{
-		[HideInInspector]
 		public Rigidbody2D myRigid;
 
 		public Animator animator;
-
+		
 		public CharacterModel model { get; private set; }
 
 		public CharacterStat stat { get; private set; }
+
+		[SerializeField] private Transform _skin;
+		
+		[SerializeField] private Transform _groundCheck;
+		
+		public LayerMask whatIsGround;
+		
+		public bool isGrounded;
+		private bool _facingRight = true;
 		public bool isMove => _stateMachine.currentState == _moveSM;
 
 		public float speedMul { get; set; } = 1;
@@ -58,9 +66,6 @@ namespace MR
 			{
 				IdleState();
 			}
-
-			myRigid = GetComponent<Rigidbody2D>();
-			Init(new CharacterModel(1f, 120f));
 		}
 
 		public void Init(CharacterModel model)
@@ -81,6 +86,8 @@ namespace MR
 		private void FixedUpdate()
 		{
 			if(_gameController.isStop) return;
+
+			CheckGround();
 
 			_stateMachine.currentState.PhysicUpdate(Time.fixedTime);
 		}
@@ -103,12 +110,28 @@ namespace MR
 
 		private void SetAnimation(Vector2 dir, Vector2 idleDirection)
 		{
-			Debug.Log($"Dir: {dir}");
-			Debug.Log($"idleDirection: {idleDirection}");
 			//animator.SetFloat("SpeedMul", speedMul);
-			animator.SetFloat("Speed", dir.normalized.magnitude);
-			animator.SetFloat("Horizontal", idleDirection.x);
-			animator.SetFloat("Vertical", idleDirection.y);
+			var speed = dir.normalized.magnitude;
+			animator.SetFloat("Speed", speed);
+			// animator.SetFloat("Horizontal", idleDirection.x);
+			// animator.SetFloat("Vertical", idleDirection.y);
+			Debug.Log(dir.x);
+			_skin.transform.localScale = new Vector2(dir.x > 0 ? 1 : -1, 1);
+			// if(_facingRight && dir.x < 0)
+			// {
+			// 	_skin.transform.localScale = new Vector2(-1, 1);
+			// 	_facingRight = false;
+			// }
+			// else if(!_facingRight && dir.x > 0)
+			// {
+			// 	_skin.transform.localScale = new Vector2(1, 1);
+			// 	_facingRight = true;
+			// }
+		}
+
+		private void CheckGround()
+		{
+			isGrounded = Physics2D.OverlapCircle(_groundCheck.position, 0.3f, whatIsGround);
 		}
 
 		#region State Machine Method

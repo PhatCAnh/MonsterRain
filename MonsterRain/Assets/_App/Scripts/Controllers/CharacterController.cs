@@ -17,15 +17,14 @@ public class CharacterController : Controller<GameApp>
 
 	private void Update()
 	{
-		if(_gameController.isStop) return;
+		if(character == null || _gameController.isStop) return;
 
 		ControlMove(Time.deltaTime);
 	}
 	private void ControlMove(float deltaTime)
 	{
-		var posX = Input.GetAxis("Horizontal");
-		var posY = Input.GetAxis("Vertical");
-		var position = new Vector2(posX, posY);
+		var posX = Input.GetAxisRaw("Horizontal");
+		var position = new Vector2(posX, 0);
 		character.Controlled(deltaTime, position);
 	}
 }

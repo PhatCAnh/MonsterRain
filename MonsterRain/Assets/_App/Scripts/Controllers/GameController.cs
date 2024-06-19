@@ -9,6 +9,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Threading;
+using _App.Scripts.Enums;
 using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
 using UnityEngine.Serialization;
@@ -33,6 +34,30 @@ public class GameController : Controller<GameApp>
 		base.OnDestroy();
 		Singleton<GameController>.Unset(this);
 	}
+
+	private void Start()
+	{
+		//StartGame();
+	}
+
+	public void ChangeScene(string nameScene, [CanBeNull] Action callback)
+	{
+		var load = SceneManager.LoadSceneAsync(nameScene, LoadSceneMode.Single);
+		load.completed += o =>
+		{
+			callback?.Invoke();
+		};
+	}
+
+	public void LoadMap()
+	{
+		Instantiate(app.resourceManager.GetMap(MapId.Fall));
+		character = Instantiate(app.resourceManager.GetCharacter(CharacterId.Main)).GetComponent<Character>();
+		character.Init(new CharacterModel(2));
+	}
 	
-	
+	public void StartGame()
+	{
+		ChangeScene(GameConst.nameScene_Game, LoadMap);
+	}
 }

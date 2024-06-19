@@ -18,6 +18,10 @@ public static class GameConst
     public static float SPEED_UP_VALUE = 2.25f;
     public static float DASH_DELAY = 1f;
     
+    public static string nameScene_Loading = "scn_Loading";
+    public static string nameScene_Main = "scn_Main";
+    public static string nameScene_Game = "scn_Game";
+    
 
     public static string GetNameWithVersion(string str)
     {

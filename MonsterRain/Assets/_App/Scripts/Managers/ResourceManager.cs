@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _App.Scripts.Enums;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,15 +14,17 @@ using UnityEngine.UI;
 
 public class ResourceManager : UIManagerBase<PopupType>
 {
-    [SerializeField] GameObject keyPrefab;
+    [SerializeField] private GameObject _mainCharacter;
+    
+    private Dictionary<CharacterId, GameObject> _characterDic;
 
-    [SerializeField] private GameObject mainUIPopupPrefab;
-    [SerializeField] private GameObject notificationPopupPrefab;
-    [SerializeField] private GameObject winGamePopupPrefab;
-    [SerializeField] private GameObject loseGamePopupPrefab; 
-    [SerializeField] private GameObject choiceMapPopupPrefab;
+    [SerializeField] private GameObject _mapFall;
+    
+    private Dictionary<MapId, GameObject> _mapDic;
 
-    private Dictionary<ItemType, GameObject> _itemDic;
+    //[SerializeField] private GameObject mainUIPopupPrefab;
+
+    
 
     private void Awake()
     {
@@ -38,25 +41,31 @@ public class ResourceManager : UIManagerBase<PopupType>
     {
         InitItemDic();
 
-        RegisterPopup(PopupType.Main, mainUIPopupPrefab);
-        RegisterPopup(PopupType.Notification, notificationPopupPrefab);
-        RegisterPopup(PopupType.WinGame, winGamePopupPrefab);
-        RegisterPopup(PopupType.LoseGame, loseGamePopupPrefab);
-        RegisterPopup(PopupType.ChoiceMap, choiceMapPopupPrefab);
+        //RegisterPopup(PopupType.Main, mainUIPopupPrefab);
     }
 
     private void InitItemDic()
     {
-        _itemDic = new Dictionary<ItemType, GameObject>()
+        _characterDic = new Dictionary<CharacterId, GameObject>()
         {
-            {ItemType.Key, keyPrefab }
+            {CharacterId.Main, _mainCharacter },
+        };
+        
+        _mapDic = new Dictionary<MapId, GameObject>()
+        {
+            {MapId.Fall, _mapFall },
         };
     }    
 
-    public GameObject GetItem(ItemType itemType)
+    public GameObject GetCharacter(CharacterId characterId)
     {
-        return _itemDic[itemType];
-    }    
+        return _characterDic[characterId];
+    }   
+    
+    public GameObject GetMap(MapId mapId)
+    {
+        return _mapDic[mapId];
+    }  
 
     public override GameObject ShowPopup(PopupType type, Action<GameObject> onInit = null)
     {
