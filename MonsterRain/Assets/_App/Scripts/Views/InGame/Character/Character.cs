@@ -23,7 +23,12 @@ namespace MR
 		
 		[SerializeField] private Transform _groundCheck;
 		
+		[SerializeField] private Vector3 _target => new Vector3(10, 10, 0);
+		
 		public LayerMask whatIsGround;
+		
+		[SerializeField] private Transform _gun;
+		[SerializeField] private float _gunDistance = 1.2f;
 		
 		public bool isGrounded;
 		private bool _facingRight = true;
@@ -79,6 +84,13 @@ namespace MR
 			var time = Time.deltaTime;
 			_stateMachine.currentState.LogicUpdate(time);
 			// if(isDoingSomething) return;
+			
+			Vector3 direction = _target - transform.position;
+
+			_gun.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+
+			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+			_gun.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(_gunDistance, 0, 0);
 
 			HandlePhysicUpdate();
 		}
