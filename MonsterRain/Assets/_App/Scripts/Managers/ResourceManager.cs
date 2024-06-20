@@ -24,7 +24,7 @@ public class ResourceManager : UIManagerBase<PopupType>
     
     [SerializeField] private GameObject _normalBullet;
     
-    private Dictionary<PoolItemId, GameObject> _poolItemDic;
+    private Dictionary<BulletId, GameObject> _poolItemDic;
     
     [SerializeField] private GameObject _cheeringHand;
     
@@ -62,9 +62,9 @@ public class ResourceManager : UIManagerBase<PopupType>
             {MapId.Fall, _mapFall },
         };
         
-        _poolItemDic = new Dictionary<PoolItemId, GameObject>()
+        _poolItemDic = new Dictionary<BulletId, GameObject>()
         {
-            {PoolItemId.NormalBullet, _normalBullet },
+            {BulletId.NormalBullet, _normalBullet },
         };
         
         _poolGun = new Dictionary<GunId, GameObject>()
@@ -83,9 +83,9 @@ public class ResourceManager : UIManagerBase<PopupType>
         return _mapDic[mapId];
     }  
     
-    public GameObject GetPoolItem(PoolItemId poolItemId)
+    public GameObject GetBullet(BulletId bulletId)
     {
-        return _poolItemDic[poolItemId];
+        return _poolItemDic[bulletId];
     }
     
     public GameObject GetGun(GunId gunId)

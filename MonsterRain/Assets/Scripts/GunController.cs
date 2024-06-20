@@ -72,7 +72,7 @@ public class GunController : MonoBehaviour
         UIController.Instance.UpdateInfoAmmo(currentBullets, maxBullets);
 
         GameObject newBullet = Instantiate(bulletPrefab, gun.position, Quaternion.identity);
-        newBullet.GetComponent<Bullet>().Init(direction, this.bulletSpeed);
+        //newBullet.GetComponent<Bullet>().Init(direction, this.bulletSpeed);
 
         Destroy(newBullet, 5);
     }

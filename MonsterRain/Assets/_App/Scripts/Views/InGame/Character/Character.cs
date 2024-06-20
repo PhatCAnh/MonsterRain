@@ -7,6 +7,7 @@ using ArbanFramework.StateMachine;
 using MR.CharacterState;
 using Unity.Mathematics;
 using UnityEngine;
+using Views.Gun;
 namespace MR
 {
 	public class Character : ObjectRPG
@@ -27,7 +28,7 @@ namespace MR
 		
 		public LayerMask whatIsGround;
 		
-		[SerializeField] private Transform _gun;
+		[SerializeField] private GunView _gun;
 		[SerializeField] private float _gunDistance = 1.2f;
 		
 		public bool isGrounded;
@@ -100,13 +101,12 @@ namespace MR
 			if(_target == null) return;
 			Vector3 direction = _target.transform.position - transform.position;
 
-			_gun.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+			_gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
 
 			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-			_gun.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(_gunDistance, 0, 0);
+			_gun.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(_gunDistance, 0, 0);
 
-			Instantiate(app.resourceManager.GetPoolItem(PoolItemId.NormalBullet), _gun.position, quaternion.identity)
-				.GetComponent<Bullet>().Init(direction, 5);
+			_gun.Shot(direction);
 		}
 
 		private void FixedUpdate()

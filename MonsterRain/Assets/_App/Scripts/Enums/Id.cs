@@ -10,7 +10,7 @@
 		Fall,
 	}
 
-	public enum PoolItemId
+	public enum BulletId
 	{
 		NormalBullet,
 	}

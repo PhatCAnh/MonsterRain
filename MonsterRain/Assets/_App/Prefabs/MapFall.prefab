@@ -1595,4 +1595,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ba8cefe4bc849d0aef0668b8736d382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeCooldownSpawnEnemy: 2
+  _timeCooldownSpawnEnemy: 0.5
