@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigid: {fileID: 1460043826849573946}
   animator: {fileID: 3318083683963590390}
-  _skin: {fileID: 4832497632642896815}
+  skin: {fileID: 4832497632642896815}
   _groundCheck: {fileID: 3775401501536451178}
   whatIsGround:
     serializedVersion: 2

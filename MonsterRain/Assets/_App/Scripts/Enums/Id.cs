@@ -9,4 +9,14 @@
 	{
 		Fall,
 	}
+
+	public enum PoolItemId
+	{
+		NormalBullet,
+	}
+
+	public enum GunId
+	{
+		CheeringHand,
+	}
 }

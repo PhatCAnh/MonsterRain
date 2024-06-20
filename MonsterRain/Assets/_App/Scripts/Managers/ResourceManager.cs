@@ -21,10 +21,16 @@ public class ResourceManager : UIManagerBase<PopupType>
     [SerializeField] private GameObject _mapFall;
     
     private Dictionary<MapId, GameObject> _mapDic;
+    
+    [SerializeField] private GameObject _normalBullet;
+    
+    private Dictionary<PoolItemId, GameObject> _poolItemDic;
+    
+    [SerializeField] private GameObject _cheeringHand;
+    
+    private Dictionary<GunId, GameObject> _poolGun;
 
     //[SerializeField] private GameObject mainUIPopupPrefab;
-
-    
 
     private void Awake()
     {
@@ -55,6 +61,16 @@ public class ResourceManager : UIManagerBase<PopupType>
         {
             {MapId.Fall, _mapFall },
         };
+        
+        _poolItemDic = new Dictionary<PoolItemId, GameObject>()
+        {
+            {PoolItemId.NormalBullet, _normalBullet },
+        };
+        
+        _poolGun = new Dictionary<GunId, GameObject>()
+        {
+            {GunId.CheeringHand, _cheeringHand },
+        };
     }    
 
     public GameObject GetCharacter(CharacterId characterId)
@@ -65,6 +81,16 @@ public class ResourceManager : UIManagerBase<PopupType>
     public GameObject GetMap(MapId mapId)
     {
         return _mapDic[mapId];
+    }  
+    
+    public GameObject GetPoolItem(PoolItemId poolItemId)
+    {
+        return _poolItemDic[poolItemId];
+    }
+    
+    public GameObject GetGun(GunId gunId)
+    {
+        return _poolGun[gunId];
     }  
 
     public override GameObject ShowPopup(PopupType type, Action<GameObject> onInit = null)

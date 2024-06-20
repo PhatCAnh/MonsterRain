@@ -1,12 +1,12 @@
-using System;
-using ArbanFramework;
-using ArbanFramework.Config;
-using ArbanFramework.MVC;
-using MR.CharacterState;
-using UnityEngine;
-using UnityEngine.Serialization;
-using StateMachine = ArbanFramework.StateMachine.StateMachine;
 
+
+using _App.Scripts.Controllers;
+using _App.Scripts.Enums;
+using ArbanFramework;
+using ArbanFramework.StateMachine;
+using MR.CharacterState;
+using Unity.Mathematics;
+using UnityEngine;
 namespace MR
 {
 	public class Character : ObjectRPG
@@ -18,12 +18,12 @@ namespace MR
 		public CharacterModel model { get; private set; }
 
 		public CharacterStat stat { get; private set; }
-
-		[SerializeField] private Transform _skin;
+		
+		public Transform skin;
 		
 		[SerializeField] private Transform _groundCheck;
-		
-		[SerializeField] private Vector3 _target => new Vector3(10, 10, 0);
+
+		[SerializeField] private EnemyView _target;
 		
 		public LayerMask whatIsGround;
 		
@@ -56,6 +56,7 @@ namespace MR
 		private CharacterMove _moveSM;
 
 		private GameController _gameController => Singleton<GameController>.instance;
+		private EnemyController _enemyController => Singleton<EnemyController>.instance;
 
 		protected override void OnViewInit()
 		{
@@ -84,15 +85,28 @@ namespace MR
 			var time = Time.deltaTime;
 			_stateMachine.currentState.LogicUpdate(time);
 			// if(isDoingSomething) return;
-			
-			Vector3 direction = _target - transform.position;
+
+			if(Input.GetMouseButtonDown(0))
+			{
+				Shot();
+			}
+
+			HandlePhysicUpdate();
+		}
+
+		private void Shot()
+		{
+			_target = _enemyController.GetNearestEnemy(transform.position);
+			if(_target == null) return;
+			Vector3 direction = _target.transform.position - transform.position;
 
 			_gun.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
 
 			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 			_gun.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(_gunDistance, 0, 0);
 
-			HandlePhysicUpdate();
+			Instantiate(app.resourceManager.GetPoolItem(PoolItemId.NormalBullet), _gun.position, quaternion.identity)
+				.GetComponent<Bullet>().Init(direction, 5);
 		}
 
 		private void FixedUpdate()
@@ -111,34 +125,10 @@ namespace MR
 
 		private void HandlePhysicUpdate()
 		{
-
 			if(moveDirection == Vector2.zero)
 				IdleState();
 			else
 				MoveState();
-
-			SetAnimation(moveDirection, idleDirection);
-		}
-
-		private void SetAnimation(Vector2 dir, Vector2 idleDirection)
-		{
-			//animator.SetFloat("SpeedMul", speedMul);
-			var speed = dir.normalized.magnitude;
-			animator.SetFloat("Speed", speed);
-			// animator.SetFloat("Horizontal", idleDirection.x);
-			// animator.SetFloat("Vertical", idleDirection.y);
-			Debug.Log(dir.x);
-			_skin.transform.localScale = new Vector2(dir.x > 0 ? 1 : -1, 1);
-			// if(_facingRight && dir.x < 0)
-			// {
-			// 	_skin.transform.localScale = new Vector2(-1, 1);
-			// 	_facingRight = false;
-			// }
-			// else if(!_facingRight && dir.x > 0)
-			// {
-			// 	_skin.transform.localScale = new Vector2(1, 1);
-			// 	_facingRight = true;
-			// }
 		}
 
 		private void CheckGround()

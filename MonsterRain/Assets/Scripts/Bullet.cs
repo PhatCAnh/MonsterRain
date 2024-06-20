@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
        if(enemy != null)
        {
            enemy.Die();
-           UIController.Instance.AddScore();
+           //UIController.Instance.AddScore();
            Destroy(gameObject);
        }
    }

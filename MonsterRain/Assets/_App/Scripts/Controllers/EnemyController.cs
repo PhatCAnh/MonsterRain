@@ -39,13 +39,29 @@ namespace _App.Scripts.Controllers
 			return enemy;
 		}
 
+		public EnemyView GetNearestEnemy(Vector2 position)
+		{
+			EnemyView enemyView = null;
+			float distance = float.MaxValue;
+			
+			foreach(var enemy in _listEnemyInGame)
+			{
+				var dis = GameLogic.CalculateDistance(position, enemy.transform.position);
+				if(dis < distance)
+				{
+					enemyView = enemy;
+					distance = dis;
+				}
+			}
+			return enemyView;
+		}
+
 		public EnemyView CheckTouchEnemy(Vector3 pos, float size = 0)
 		{
 			foreach(var enemy in _listEnemyInGame.ToList())
 			{
 				if(Vector2.Distance(pos, enemy.transform.position) < enemy.size + size)
 				{
-					Debug.Log("touched");
 					return enemy;
 				}
 			}
