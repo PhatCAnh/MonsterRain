@@ -3,6 +3,7 @@ using _App.Scripts.Controllers;
 using _App.Scripts.Enums;
 using ArbanFramework;
 using ArbanFramework.MVC;
+using MR;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,6 +19,8 @@ namespace Views.Gun
 
 		[SerializeField] private float _stepTimeShot;
 
+		public GunModel model => app.models.gunModel;
+
 		private Cooldown _cdTimeShot;
 
 		protected BulletController bulletController => Singleton<BulletController>.instance;
@@ -25,6 +28,7 @@ namespace Views.Gun
 		protected override void OnViewInit()
 		{
 			base.OnViewInit();
+			app.models.gunModel = new GunModel(15);
 			_cdTimeShot = new Cooldown(_stepTimeShot);
 		}
 
@@ -40,6 +44,7 @@ namespace Views.Gun
 			if(_cdTimeShot.isFinished)
 			{
 				bulletController.SpawnBullet(_bulletId, _firePoint.transform.position, direction, _bulletSpeed);
+				model.currentAmmo -= 1;
 				_cdTimeShot.Restart(_stepTimeShot);
 			}
 		}

@@ -23,7 +23,7 @@ public class GameController : Controller<GameApp>
 
 	public bool isEndGame;
 
-	public Character character;
+	public CharacterController characterController => Singleton<CharacterController>.instance;
 
 	private void Awake()
 	{
@@ -52,8 +52,10 @@ public class GameController : Controller<GameApp>
 	public void LoadMap()
 	{
 		Instantiate(app.resourceManager.GetMap(MapId.Fall));
-		character = Instantiate(app.resourceManager.GetCharacter(CharacterId.Main)).GetComponent<Character>();
-		character.Init(new CharacterModel(2));
+		characterController.character = Instantiate(app.resourceManager.GetCharacter(CharacterId.Main)).GetComponent<Character>();
+		characterController.character.Init(new CharacterModel(2));
+
+		app.resourceManager.ShowPopup(PopupType.Main);
 	}
 	
 	public void StartGame()

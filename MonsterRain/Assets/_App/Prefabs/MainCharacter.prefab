@@ -56,7 +56,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  _gun: {fileID: 8785791363220423771}
+  gun: {fileID: 8785791363220423771}
   _gunDistance: 1.2
   isGrounded: 0
 --- !u!50 &1460043826849573946

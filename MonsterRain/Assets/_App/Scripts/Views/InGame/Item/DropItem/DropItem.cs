@@ -37,7 +37,7 @@ namespace MR
         protected override void OnViewInit() {
             base.OnViewInit();
 
-            character = _gameController.character;
+            //character = _gameController.character;
 
             if( _stateMachine == null ) {
                 _stateMachine = new StateMachine();

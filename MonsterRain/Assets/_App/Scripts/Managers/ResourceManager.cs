@@ -30,7 +30,7 @@ public class ResourceManager : UIManagerBase<PopupType>
     
     private Dictionary<GunId, GameObject> _poolGun;
 
-    //[SerializeField] private GameObject mainUIPopupPrefab;
+    [SerializeField] private GameObject _mainUIPopupPrefab;
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class ResourceManager : UIManagerBase<PopupType>
     {
         InitItemDic();
 
-        //RegisterPopup(PopupType.Main, mainUIPopupPrefab);
+        RegisterPopup(PopupType.Main, _mainUIPopupPrefab);
     }
 
     private void InitItemDic()

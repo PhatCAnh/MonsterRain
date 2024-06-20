@@ -7,7 +7,7 @@ using Cooldown = ArbanFramework.Cooldown;
 
 public class CharacterController : Controller<GameApp>
 {
-	public Character character => _gameController.character;
+	public Character character;
 	private GameController _gameController => Singleton<GameController>.instance;
 
 	private void Awake()
