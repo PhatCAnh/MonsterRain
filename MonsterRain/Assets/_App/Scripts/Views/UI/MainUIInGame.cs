@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _App.Scripts.Models;
 using ArbanFramework.MVC;
 using MR;
 using TMPro;
@@ -13,12 +14,13 @@ public class MainUIInGame : View<GameApp>, IPopup
     {
         base.OnViewInit();
         
-        AddDataBinding("fieldDataPlayerModel-limitQuantityItemEquip", _txtNumberAmmo, (control, e) =>
+        AddDataBinding("fieldCharacterModel-Shot", _txtNumberAmmo, (control, e) =>
         {
-            var data = app.models.gunModel;
-            control.text = $"{data.currentAmmo} / {data.maxAmmo}";
-        }, new DataChangedValue(GunModel.dataChangedEvent, nameof(GunModel.currentAmmo), app.models.gunModel));
+            var model = app.models.characterModel.mainGun;
+            control.text = $"{model.currentAmmo} / {model.maxAmmo}";
+        }, new DataChangedValue(CharacterModel.dataChangedEvent, "mainGun-Shot", app.models.characterModel));
     }
+
     public void Open()
     {
         

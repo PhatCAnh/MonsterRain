@@ -1,19 +1,18 @@
-﻿using ArbanFramework.MVC;
-using MR;
+﻿using _App.Scripts.Models;
+using ArbanFramework.MVC;
 
 public class ModelManager : ModelManagerBase
 {
 	public CharacterModel characterModel;
 	//Models
 	public SettingModel settingModel;
-
-	public GunModel gunModel;
+	public EnemyModel enemyModel;
 	public void Init()
 	{
 		//Register
 		RegisterModel(out settingModel);
 		RegisterModel(out characterModel);
-		RegisterModel(out gunModel);
+		RegisterModel(out enemyModel);
 		LoadData();
 	}
 }

@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     public float size;
     private Vector3 _direction;
     private float _speed;
+    private int _atk;
     
    private Rigidbody2D rb => GetComponent<Rigidbody2D>();
 
@@ -26,19 +27,24 @@ public class Bullet : MonoBehaviour
        var enemy = enemyController.CheckTouchEnemy(transform.position, size);
        if(enemy != null)
        {
-           enemy.Die();
+           enemy.TakeDamage(_atk);
            //UIController.Instance.AddScore();
            Destroy(gameObject);
        }
    }
 
-   public void Init(Vector3 direction, float speed)
+   public void Init(Vector3 direction, float speed, int atk)
    {
        this._direction = direction;
        this._speed = speed;
+       this._atk = atk;
    }
 
-    // private void OnTriggerEnter2D(Collider2D collision)
+   protected void OnDrawGizmos()
+   {
+       Gizmos.DrawWireSphere(transform.position, size);
+   }
+   // private void OnTriggerEnter2D(Collider2D collision)
     // {
     //     if(collision.tag == "Target")
     //     {

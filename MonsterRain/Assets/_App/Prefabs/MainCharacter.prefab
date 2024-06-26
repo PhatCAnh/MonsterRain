@@ -311,6 +311,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheeringHand
       objectReference: {fileID: 0}
+    - target: {fileID: 6674401191678422222, guid: bafac7b975c1c354ba2daceda3470340, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

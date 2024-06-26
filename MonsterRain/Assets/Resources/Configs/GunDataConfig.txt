@@ -1,0 +1,2 @@
+﻿Id,BulletSpeed,StepTimeShot,Magazine,Atk
+CheeringHand,5,0.25,30,2

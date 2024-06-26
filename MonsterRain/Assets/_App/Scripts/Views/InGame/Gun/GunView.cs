@@ -1,5 +1,6 @@
 ﻿using System;
 using _App.Scripts.Controllers;
+using _App.Scripts.Datas;
 using _App.Scripts.Enums;
 using ArbanFramework;
 using ArbanFramework.MVC;
@@ -14,22 +15,29 @@ namespace Views.Gun
 		[SerializeField] private Transform _firePoint;
 
 		[SerializeField] private BulletId _bulletId;
+		
+		private GunUsedData _gunUsedData;
 
-		[SerializeField] private float _bulletSpeed;
-
-		[SerializeField] private float _stepTimeShot;
-
-		public GunModel model => app.models.gunModel;
+		private GunDataConfig _dataConfig;
 
 		private Cooldown _cdTimeShot;
+
+		private Character _origin;
 
 		protected BulletController bulletController => Singleton<BulletController>.instance;
 
 		protected override void OnViewInit()
 		{
 			base.OnViewInit();
-			app.models.gunModel = new GunModel(15);
-			_cdTimeShot = new Cooldown(_stepTimeShot);
+			_cdTimeShot = new Cooldown(_dataConfig.stepTimeShot);
+		}
+
+		public void Init(GunDataConfig dataConfig, Character character)
+		{
+			_origin = character;
+			_dataConfig = dataConfig;
+			_gunUsedData = character.model.mainGun;
+			transform.SetParent(character.transform);
 		}
 
 		private void Update()
@@ -43,9 +51,9 @@ namespace Views.Gun
 		{
 			if(_cdTimeShot.isFinished)
 			{
-				bulletController.SpawnBullet(_bulletId, _firePoint.transform.position, direction, _bulletSpeed);
-				model.currentAmmo -= 1;
-				_cdTimeShot.Restart(_stepTimeShot);
+				if(!_origin.model.Shot()) return;
+				bulletController.SpawnBullet(_bulletId, _firePoint.transform.position, direction, _dataConfig.bulletSpeed, _dataConfig.atk);
+				_cdTimeShot.Restart(_dataConfig.stepTimeShot);
 			}
 		}
 	}

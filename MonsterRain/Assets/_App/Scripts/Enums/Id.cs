@@ -19,4 +19,9 @@
 	{
 		CheeringHand,
 	}
+
+	public enum EnemyId
+	{
+		BasicEnemy,
+	}
 }

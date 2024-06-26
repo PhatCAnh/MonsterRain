@@ -1,5 +1,6 @@
 using _App.Scripts.Controllers;
 using _App.Scripts.Enums;
+using _App.Scripts.Models;
 using ArbanFramework;
 using ArbanFramework.StateMachine;
 using MR;
@@ -15,7 +16,7 @@ public class Character : ObjectRPG
 
 	public Animator animator;
 
-	public CharacterModel model { get; private set; }
+	public CharacterModel model => app.models.characterModel;
 
 	public CharacterStat stat { get; private set; }
 
@@ -75,9 +76,10 @@ public class Character : ObjectRPG
 		}
 	}
 
-	public void Init(CharacterModel model)
+	public void Init(CharacterModel model, GunView gun)
 	{
-		this.model = model;
+		app.models.characterModel = model;
+		this.gun = gun;
 	}
 
 	private void Update()
