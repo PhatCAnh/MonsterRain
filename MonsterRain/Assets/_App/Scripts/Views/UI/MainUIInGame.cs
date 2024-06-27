@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class MainUIInGame : View<GameApp>, IPopup
 {
-    [SerializeField] private TextMeshProUGUI _txtNumberAmmo;
+    [SerializeField] private TextMeshProUGUI _txtNumberAmmo, _txtNumberMagazine;
 
     protected override void OnViewInit()
     {
@@ -18,6 +18,7 @@ public class MainUIInGame : View<GameApp>, IPopup
         {
             var model = app.models.characterModel.mainGun;
             control.text = $"{model.currentAmmo} / {model.maxAmmo}";
+            //_txtNumberMagazine.text = $"{model.currentAmmoInMagazine}";
         }, new DataChangedValue(CharacterModel.dataChangedEvent, "mainGun-Shot", app.models.characterModel));
     }
 

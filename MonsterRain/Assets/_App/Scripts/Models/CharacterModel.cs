@@ -56,15 +56,37 @@ namespace _App.Scripts.Models
 
         public bool Shot()
         {
-            if(mainGun.currentAmmo <= 0) return false;
+            if(mainGun.currentAmmoInMagazine <= 0)
+            {
+                
+            }
 
             mainGun.currentAmmo -= 1;
-            
-            Debug.Log($"Current ammo: {mainGun.currentAmmo}");
+
+            mainGun.currentAmmoInMagazine -= 1;
 
             RaiseDataChanged("mainGun-Shot");
 
             return true;
+        }
+
+        public void AddAmmo(int quantity)
+        {
+            //_mainGun.currentAmmo = mainGun.currentAmmo + quantity > mainGun.maxAmmo ? mainGun.maxAmmo : mainGun.currentAmmo + quantity;
+            RaiseDataChanged("mainGun-Shot");
+        }
+
+        public bool ReloadAmmo()
+        {
+            if(mainGun.currentAmmo > 0)
+            {
+                var number = mainGun.currentAmmo > mainGun.magazine ? mainGun.magazine : mainGun.currentAmmo;
+            
+                mainGun.currentAmmoInMagazine = number;
+
+                return true;
+            }
+            return false;
         }
     }
 }

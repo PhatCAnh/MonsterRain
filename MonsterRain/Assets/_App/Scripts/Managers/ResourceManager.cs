@@ -29,6 +29,10 @@ public class ResourceManager : UIManagerBase<PopupType>
     [SerializeField] private GameObject _cheeringHand;
     
     private Dictionary<GunId, GameObject> _poolGun;
+    
+    [SerializeField] private GameObject _magazineItemDrop;
+    
+    private Dictionary<ItemDropId, GameObject> _itemDropDic;
 
     [SerializeField] private GameObject _mainUIPopupPrefab;
 
@@ -71,6 +75,11 @@ public class ResourceManager : UIManagerBase<PopupType>
         {
             {GunId.CheeringHand, _cheeringHand },
         };
+        
+        _itemDropDic = new Dictionary<ItemDropId, GameObject>()
+        {
+            {ItemDropId.Magazine, _magazineItemDrop },
+        };
     }    
 
     public GameObject GetCharacter(CharacterId characterId)
@@ -91,7 +100,13 @@ public class ResourceManager : UIManagerBase<PopupType>
     public GameObject GetGun(GunId gunId)
     {
         return _poolGun[gunId];
+    } 
+    
+    public GameObject GetItemDrop(ItemDropId itemDropId)
+    {
+        return _itemDropDic[itemDropId];
     }  
+
 
     public override GameObject ShowPopup(PopupType type, Action<GameObject> onInit = null)
     {

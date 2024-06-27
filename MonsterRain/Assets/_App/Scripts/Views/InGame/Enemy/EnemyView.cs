@@ -38,7 +38,6 @@ public class EnemyView : View<GameApp>
     public void Init(EnemyModel model)
     {
         this.model = model;
-
     }
     
     

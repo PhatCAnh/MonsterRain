@@ -24,4 +24,9 @@
 	{
 		BasicEnemy,
 	}
+
+	public enum ItemDropId
+	{
+		Magazine,
+	}
 }

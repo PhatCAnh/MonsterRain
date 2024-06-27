@@ -320,6 +320,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5383714426216001871, guid: b5c1258f8ac3096489823e71facf276f, type: 3}
     - target: {fileID: 4925867890978961579, guid: a58398efbbc97cc4eb189419670638b1, type: 3}
+      propertyPath: _magazineItemDrop
+      value: 
+      objectReference: {fileID: 7080670206084594072, guid: 6f9249aec9c36a24b9adb7b92893bbc0, type: 3}
+    - target: {fileID: 4925867890978961579, guid: a58398efbbc97cc4eb189419670638b1, type: 3}
       propertyPath: _mainUIPopupPrefab
       value: 
       objectReference: {fileID: 1037995623563814881, guid: b4f1b8200441738448854be4e9dee04c, type: 3}
