@@ -22,12 +22,17 @@ namespace _App.Scripts.Datas
 		public GunId id;
 		public int currentAmmo;
 		public int maxAmmo;
+		public int currentAmmoInMagazine;
+		public int magazine;
+		
 
-		public GunUsedData(GunId id, int maxAmmo)
+		public GunUsedData(GunId id, int maxAmmo, int magazine)
 		{
 			this.id = id;
 			this.maxAmmo = maxAmmo;
-			currentAmmo = this.maxAmmo;
+			this.currentAmmo = maxAmmo;
+			this.currentAmmoInMagazine = magazine;
+			this.magazine = magazine;
 		}
 	}
 }

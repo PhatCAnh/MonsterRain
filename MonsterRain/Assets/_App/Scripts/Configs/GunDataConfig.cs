@@ -10,7 +10,9 @@ namespace MR
 		public float bulletSpeed { get; private set; }
 		public float stepTimeShot { get; private set; }
 		public int magazine { get; private set; }
+		public int ammoTotal { get; private set; }
 		public int atk { get; private set; }
+		public float timeLoad { get; private set; }
 
 		public string GetId()
 		{
@@ -23,7 +25,9 @@ namespace MR
 			bulletSpeed = reader.ReadFloat();
 			stepTimeShot = reader.ReadFloat();
 			magazine = reader.ReadInt();
+			ammoTotal = reader.ReadInt();
 			atk = reader.ReadInt();
+			timeLoad = reader.ReadFloat();
 		}
 	}
 	

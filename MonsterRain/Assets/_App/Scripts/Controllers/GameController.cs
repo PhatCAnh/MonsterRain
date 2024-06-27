@@ -9,6 +9,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Threading;
+using _App.Scripts;
 using _App.Scripts.Datas;
 using _App.Scripts.Enums;
 using _App.Scripts.Models;
@@ -62,11 +63,13 @@ public class GameController : Controller<GameApp>
 		
 		var gun = Instantiate(gunData.prefab).GetComponent<GunView>();
 		
-		character.Init(new CharacterModel(2, new GunUsedData(gunData.id, gunData.dataConfig.magazine)), gun);
+		character.Init(new CharacterModel(2, new GunUsedData(gunData.id, gunData.dataConfig.magazine, gunData.dataConfig.magazine)), gun);
 		
-		gun.Init(gunData.dataConfig, character);
-
 		characterController.character = character;
+		
+		gun.Init(gunData.dataConfig);
+
+		
 		
 		Instantiate(app.resourceManager.GetMap(MapId.Fall));
 	}
@@ -83,5 +86,12 @@ public class GameController : Controller<GameApp>
 		var data = app.configs.gunDataConfig.GetData(id);
 
 		return new GunData(id, go, data);
+	}
+
+	public bool CheckDistancePlayer(Vector2 pos, float size)
+	{
+		var character = characterController.character;
+
+		return GameLogic.CalculateDistance(character.transform.position, pos) < (size + character.size) * (size + character.size);
 	}
 }

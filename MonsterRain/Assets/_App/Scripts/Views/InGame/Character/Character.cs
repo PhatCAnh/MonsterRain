@@ -22,6 +22,8 @@ public class Character : ObjectRPG
 
 	public Transform skin;
 
+	public float size;
+
 	[SerializeField] private Transform _groundCheck;
 
 	[SerializeField] private EnemyView _target;
@@ -35,6 +37,8 @@ public class Character : ObjectRPG
 	public bool isGrounded;
 	private bool _facingRight = true;
 	public bool isMove => _stateMachine.currentState == _moveSM;
+
+	public bool isHaveAmmo => model.mainGun.currentAmmo > 0;
 
 	public float speedMul { get; set; } = 1;
 	public Vector2 idleDirection { get; private set; } = Vector2.down;
@@ -89,7 +93,7 @@ public class Character : ObjectRPG
 		_stateMachine.currentState.LogicUpdate(time);
 		// if(isDoingSomething) return;
 
-		if(Input.GetMouseButtonDown(0))
+		if(Input.GetMouseButton(0))
 		{
 			Shot();
 		}
@@ -136,6 +140,11 @@ public class Character : ObjectRPG
 	private void CheckGround()
 	{
 		isGrounded = Physics2D.OverlapCircle(_groundCheck.position, 0.3f, whatIsGround);
+	}
+	
+	protected void OnDrawGizmos()
+	{
+		Gizmos.DrawWireSphere(transform.position, size);
 	}
 
 	#region State Machine Method

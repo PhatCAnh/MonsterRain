@@ -81,6 +81,7 @@ namespace _App.Scripts.Controllers
 		{
 			if(!selfDie)
 			{
+				Instantiate(app.resourceManager.GetItemDrop(ItemDropId.Magazine), enemy.transform.position, Quaternion.identity);
 				// map.model.monsterKilled++;
 				// var gem = poolController.GetObject(ItemPrefab.GemExp, enemy.transform.position);
 				// gem.GetComponent<DropItem>().Init(enemy.stat.exp.BaseValue, RandomDropItem());
