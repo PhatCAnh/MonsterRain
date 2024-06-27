@@ -10,12 +10,16 @@ public class ConfigManager : ConfigManagerBase
 {
     //Configs
     public ConstConfigTable constConfig;
+    public GunDataConfigTable gunDataConfig;
+    public EnemyDataConfigTable enemyDataConfig;
 
     //private bool _isCanLoadRemoteConfig = false;
     public void Init()
     {
         //Register
         Register(out constConfig);
+        Register(out gunDataConfig);
+        Register(out enemyDataConfig);
         LoadConfigs();
   }
 

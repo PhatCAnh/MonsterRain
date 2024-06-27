@@ -9,10 +9,13 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Threading;
+using _App.Scripts.Datas;
 using _App.Scripts.Enums;
+using _App.Scripts.Models;
 using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
 using UnityEngine.Serialization;
+using Views.Gun;
 
 public class GameController : Controller<GameApp>
 {
@@ -51,15 +54,34 @@ public class GameController : Controller<GameApp>
 
 	public void LoadMap()
 	{
-		Instantiate(app.resourceManager.GetMap(MapId.Fall));
-		characterController.character = Instantiate(app.resourceManager.GetCharacter(CharacterId.Main)).GetComponent<Character>();
-		characterController.character.Init(new CharacterModel(2));
-
 		app.resourceManager.ShowPopup(PopupType.Main);
+
+		var character = Instantiate(app.resourceManager.GetCharacter(CharacterId.Main)).GetComponent<Character>();
+
+		var gunData = GetDataGun(GunId.CheeringHand);
+		
+		var gun = Instantiate(gunData.prefab).GetComponent<GunView>();
+		
+		character.Init(new CharacterModel(2, new GunUsedData(gunData.id, gunData.dataConfig.magazine)), gun);
+		
+		gun.Init(gunData.dataConfig, character);
+
+		characterController.character = character;
+		
+		Instantiate(app.resourceManager.GetMap(MapId.Fall));
 	}
 	
 	public void StartGame()
 	{
 		ChangeScene(GameConst.nameScene_Game, LoadMap);
+	}
+	
+	//chuyen qua gunController
+	public GunData GetDataGun(GunId id)
+	{
+		var go = app.resourceManager.GetGun(id);
+		var data = app.configs.gunDataConfig.GetData(id);
+
+		return new GunData(id, go, data);
 	}
 }

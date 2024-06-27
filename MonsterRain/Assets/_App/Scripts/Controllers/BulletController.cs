@@ -17,10 +17,10 @@ namespace _App.Scripts.Controllers
 			Singleton<BulletController>.Unset(this);
 		}
 
-		public void SpawnBullet(BulletId bulletId, Vector2 firePoint, Vector3 direction, float speed)
+		public void SpawnBullet(BulletId bulletId, Vector2 firePoint, Vector3 direction, float speed, int atk)
 		{
 			Instantiate(app.resourceManager.GetBullet(bulletId), firePoint, quaternion.identity)
-				.GetComponent<Bullet>().Init(direction, speed);
+				.GetComponent<Bullet>().Init(direction, speed, atk);
 		}
 	}
 }

@@ -1,0 +1,2 @@
+﻿Id,Name,MoveSpeed,HealthPoint
+BasicEnemy,BasicEnemy,2,10

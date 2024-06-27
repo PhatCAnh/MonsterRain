@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _App.Scripts.Enums;
+using _App.Scripts.Models;
 using ArbanFramework;
 using ArbanFramework.MVC;
 using UnityEngine;
@@ -34,6 +36,13 @@ namespace _App.Scripts.Controllers
 			int randomIndexSprite = Random.Range(0, targetSprites.Length);
 			newTarget.GetComponent<SpriteRenderer>().sprite = targetSprites[randomIndexSprite];
 			var enemy = newTarget.GetComponent<EnemyView>();
+
+			var dataConfig = app.configs.enemyDataConfig.GetData(EnemyId.BasicEnemy);
+
+			var model = new EnemyModel(dataConfig.moveSpeed, dataConfig.healthPoint);
+			
+			enemy.Init(model);
+			
 			_listEnemyInGame.Add(enemy);
 			
 			return enemy;
