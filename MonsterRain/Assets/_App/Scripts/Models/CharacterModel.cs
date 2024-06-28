@@ -72,7 +72,10 @@ namespace _App.Scripts.Models
 
         public void AddAmmo(int quantity)
         {
-            //_mainGun.currentAmmo = mainGun.currentAmmo + quantity > mainGun.maxAmmo ? mainGun.maxAmmo : mainGun.currentAmmo + quantity;
+            var ammo = mainGun.currentAmmo + quantity;
+            var magazine = mainGun.currentAmmoInMagazine + quantity;
+            _mainGun.currentAmmo = ammo > mainGun.maxAmmo ? mainGun.maxAmmo : ammo;
+            _mainGun.currentAmmoInMagazine = magazine > mainGun.magazine ? mainGun.magazine : magazine;
             RaiseDataChanged("mainGun-Shot");
         }
 

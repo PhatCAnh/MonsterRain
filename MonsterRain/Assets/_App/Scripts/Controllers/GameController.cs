@@ -63,7 +63,7 @@ public class GameController : Controller<GameApp>
 		
 		var gun = Instantiate(gunData.prefab).GetComponent<GunView>();
 		
-		character.Init(new CharacterModel(2, new GunUsedData(gunData.id, gunData.dataConfig.magazine, gunData.dataConfig.magazine)), gun);
+		character.Init(new CharacterModel(2, new GunUsedData(gunData.id, gunData.dataConfig.ammoTotal, gunData.dataConfig.magazine)), gun);
 		
 		characterController.character = character;
 		

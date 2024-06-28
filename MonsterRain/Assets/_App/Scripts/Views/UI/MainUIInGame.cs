@@ -18,7 +18,7 @@ public class MainUIInGame : View<GameApp>, IPopup
         {
             var model = app.models.characterModel.mainGun;
             control.text = $"{model.currentAmmo} / {model.maxAmmo}";
-            //_txtNumberMagazine.text = $"{model.currentAmmoInMagazine}";
+            _txtNumberMagazine.text = $"{model.currentAmmoInMagazine}";
         }, new DataChangedValue(CharacterModel.dataChangedEvent, "mainGun-Shot", app.models.characterModel));
     }
 

@@ -73,7 +73,14 @@ namespace Views.Gun
 		public virtual void Shot(Vector3 direction)
 		{
 			if(_stateMachine.currentState != _idleSm) return;
-			if(!origin.model.Shot()) return;
+			if(!origin.model.Shot())
+			{
+				if(origin.model.mainGun.currentAmmo > 0)
+				{
+					ReloadState();
+				}
+				return;
+			}
 			bulletController.SpawnBullet(_bulletId, _firePoint.transform.position, direction, dataConfig.bulletSpeed, dataConfig.atk);
 			StepState();
 		}
