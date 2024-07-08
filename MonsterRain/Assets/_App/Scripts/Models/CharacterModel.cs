@@ -56,11 +56,8 @@ namespace _App.Scripts.Models
 
         public bool Shot()
         {
-            if(mainGun.currentAmmoInMagazine <= 0)
-            {
-                
-            }
-
+            if (mainGun.currentAmmoInMagazine <= 0) return false;
+            
             mainGun.currentAmmo -= 1;
 
             mainGun.currentAmmoInMagazine -= 1;
