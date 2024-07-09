@@ -15,6 +15,8 @@ namespace Views.Gun
 {
 	public class GunView : View<GameApp>
 	{
+		[SerializeField] private Animator _animSkin;
+		
 		[SerializeField] private Transform _firePoint;
 
 		[SerializeField] private BulletId _bulletId;
@@ -82,6 +84,7 @@ namespace Views.Gun
 				return;
 			}
 			bulletController.SpawnBullet(_bulletId, _firePoint.transform.position, direction, dataConfig.bulletSpeed, dataConfig.atk);
+			_animSkin.SetTrigger("Shot");
 			StepState();
 		}
 

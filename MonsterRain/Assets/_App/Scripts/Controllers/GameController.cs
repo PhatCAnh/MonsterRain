@@ -59,7 +59,7 @@ public class GameController : Controller<GameApp>
 
 		var character = Instantiate(app.resourceManager.GetCharacter(CharacterId.Main)).GetComponent<Character>();
 
-		var gunData = GetDataGun(GunId.CheeringHand);
+		var gunData = GetDataGun(GunId.Heavy);
 		
 		var gun = Instantiate(gunData.prefab).GetComponent<GunView>();
 		
@@ -68,8 +68,6 @@ public class GameController : Controller<GameApp>
 		characterController.character = character;
 		
 		gun.Init(gunData.dataConfig);
-
-		
 		
 		Instantiate(app.resourceManager.GetMap(MapId.Fall));
 	}

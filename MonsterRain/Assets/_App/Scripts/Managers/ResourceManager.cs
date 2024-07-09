@@ -24,11 +24,15 @@ public class ResourceManager : UIManagerBase<PopupType>
     
     [SerializeField] private GameObject _normalBullet;
     
-    private Dictionary<BulletId, GameObject> _poolItemDic;
+    [SerializeField] private GameObject _heavyBullet;
+    
+    private Dictionary<BulletId, GameObject> _poolBulletDic;
     
     [SerializeField] private GameObject _cheeringHand;
     
-    private Dictionary<GunId, GameObject> _poolGun;
+    [SerializeField] private GameObject _HeavyGun;
+    
+    private Dictionary<GunId, GameObject> _poolGunDic;
     
     [SerializeField] private GameObject _magazineItemDrop;
     
@@ -66,14 +70,16 @@ public class ResourceManager : UIManagerBase<PopupType>
             {MapId.Fall, _mapFall },
         };
         
-        _poolItemDic = new Dictionary<BulletId, GameObject>()
+        _poolBulletDic = new Dictionary<BulletId, GameObject>()
         {
             {BulletId.NormalBullet, _normalBullet },
+            {BulletId.HeavyBullet, _heavyBullet },
         };
         
-        _poolGun = new Dictionary<GunId, GameObject>()
+        _poolGunDic = new Dictionary<GunId, GameObject>()
         {
             {GunId.CheeringHand, _cheeringHand },
+            {GunId.Heavy, _HeavyGun },
         };
         
         _itemDropDic = new Dictionary<ItemDropId, GameObject>()
@@ -94,12 +100,12 @@ public class ResourceManager : UIManagerBase<PopupType>
     
     public GameObject GetBullet(BulletId bulletId)
     {
-        return _poolItemDic[bulletId];
+        return _poolBulletDic[bulletId];
     }
     
     public GameObject GetGun(GunId gunId)
     {
-        return _poolGun[gunId];
+        return _poolGunDic[gunId];
     } 
     
     public GameObject GetItemDrop(ItemDropId itemDropId)

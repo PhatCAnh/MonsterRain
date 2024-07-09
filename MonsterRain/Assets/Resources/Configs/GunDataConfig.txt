@@ -1,2 +1,3 @@
 ﻿Id,BulletSpeed,StepTimeShot,Magazine,AmmoTotal,Atk,TimeReload
 CheeringHand,5,0.25,30,60,2,2
+Heavy,50,0.2,30,120,2,2

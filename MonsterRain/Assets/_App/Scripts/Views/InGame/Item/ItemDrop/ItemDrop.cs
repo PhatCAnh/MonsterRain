@@ -23,7 +23,7 @@ namespace _App.Scripts.Views
         protected override void OnViewInit()
         {
             base.OnViewInit();
-            _cd = new Cooldown(5);
+            _cd = new Cooldown(7.5f);
         }
 
         private void FixedUpdate()
@@ -36,7 +36,7 @@ namespace _App.Scripts.Views
             _cd.Update(Time.deltaTime);
             if(_cd.isFinished)
             {
-                skin.DOColor(Color.clear, 2).OnComplete(() => { Destroy(gameObject); });
+                Destroy(gameObject);
             }
         }
 

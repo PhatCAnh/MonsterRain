@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private Transform _skin;
     public float size;
     private Vector3 _direction;
     private float _speed;
@@ -19,7 +20,7 @@ public class Bullet : MonoBehaviour
    void Update()
    {
        //transform.right = rb.velocity;
-       transform.Translate(_speed * Time.deltaTime *_direction);
+       transform.Translate(_speed * Time.deltaTime * _direction.normalized);
    }
 
    private void FixedUpdate()
@@ -38,6 +39,7 @@ public class Bullet : MonoBehaviour
        this._direction = direction;
        this._speed = speed;
        this._atk = atk;
+       _skin.transform.up = direction;
    }
 
    protected void OnDrawGizmos()

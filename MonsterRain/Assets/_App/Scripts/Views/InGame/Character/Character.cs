@@ -61,6 +61,8 @@ public class Character : ObjectRPG
 	private CharacterIdle _idleSM;
 	private CharacterMove _moveSM;
 
+	private Vector3 _directionTarget;
+
 	private GameController _gameController => Singleton<GameController>.instance;
 	private EnemyController _enemyController => Singleton<EnemyController>.instance;
 
@@ -78,6 +80,11 @@ public class Character : ObjectRPG
 		{
 			IdleState();
 		}
+		
+		gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(_directionTarget.y, _directionTarget.x) * Mathf.Rad2Deg));
+
+		float angle = Mathf.Atan2(_directionTarget.y, _directionTarget.x) * Mathf.Rad2Deg;
+		gun.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(_gunDistance, 0, 0);
 	}
 
 	public void Init(CharacterModel model, GunView gun)
@@ -92,10 +99,21 @@ public class Character : ObjectRPG
 		var time = Time.deltaTime;
 		_stateMachine.currentState.LogicUpdate(time);
 		// if(isDoingSomething) return;
-
-		if(Input.GetMouseButton(0))
+		
+		_target = _enemyController.GetNearestEnemy(transform.position);
+		if (_target is not null)
 		{
-			Shot();
+			_directionTarget = _target.transform.position - transform.position;
+
+			gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(_directionTarget.y, _directionTarget.x) * Mathf.Rad2Deg));
+
+			float angle = Mathf.Atan2(_directionTarget.y, _directionTarget.x) * Mathf.Rad2Deg;
+			gun.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(_gunDistance, 0, 0);
+			
+			if(Input.GetMouseButton(0))
+			{
+				Shot();
+			}
 		}
 
 		HandlePhysicUpdate();
@@ -103,21 +121,14 @@ public class Character : ObjectRPG
 
 	private void Shot()
 	{
-		_target = _enemyController.GetNearestEnemy(transform.position);
-		if(_target == null) return;
-		Vector3 direction = _target.transform.position - transform.position;
-
-		gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
-
-		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-		gun.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(_gunDistance, 0, 0);
-
-		gun.Shot(direction);
+		gun.Shot(_directionTarget);
 	}
 
 	private void FixedUpdate()
 	{
 		if(_gameController.isStop) return;
+		
+		
 
 		CheckGround();
 

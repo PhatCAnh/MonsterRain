@@ -13,11 +13,13 @@
 	public enum BulletId
 	{
 		NormalBullet,
+		HeavyBullet,
 	}
 
 	public enum GunId
 	{
 		CheeringHand,
+		Heavy,
 	}
 
 	public enum EnemyId
