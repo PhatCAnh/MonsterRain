@@ -17,10 +17,12 @@ public class ResourceManager : UIManagerBase<PopupType>
     [SerializeField] private GameObject _mainCharacter;
     
     private Dictionary<CharacterId, GameObject> _characterDic;
+    
 
     [SerializeField] private GameObject _mapFall;
     
     private Dictionary<MapId, GameObject> _mapDic;
+    
     
     [SerializeField] private GameObject _normalBullet;
     
@@ -28,15 +30,23 @@ public class ResourceManager : UIManagerBase<PopupType>
     
     private Dictionary<BulletId, GameObject> _poolBulletDic;
     
+    
     [SerializeField] private GameObject _cheeringHand;
     
     [SerializeField] private GameObject _HeavyGun;
     
     private Dictionary<GunId, GameObject> _poolGunDic;
+
+
+    [SerializeField] private GameObject _sandEgg;
+    
+    private Dictionary<EnemyId, GameObject> _enemyDic;
+    
     
     [SerializeField] private GameObject _magazineItemDrop;
     
     private Dictionary<ItemDropId, GameObject> _itemDropDic;
+    
 
     [SerializeField] private GameObject _mainUIPopupPrefab;
 
@@ -86,6 +96,16 @@ public class ResourceManager : UIManagerBase<PopupType>
         {
             {ItemDropId.Magazine, _magazineItemDrop },
         };
+        
+        _itemDropDic = new Dictionary<ItemDropId, GameObject>()
+        {
+            {ItemDropId.Magazine, _magazineItemDrop },
+        };
+        
+        _enemyDic = new Dictionary<EnemyId, GameObject>()
+        {
+            {EnemyId.SandEgg, _sandEgg },
+        };
     }    
 
     public GameObject GetCharacter(CharacterId characterId)
@@ -112,7 +132,11 @@ public class ResourceManager : UIManagerBase<PopupType>
     {
         return _itemDropDic[itemDropId];
     }  
-
+    
+    public GameObject GetEnemy(EnemyId enemyId)
+    {
+        return _enemyDic[enemyId];
+    }
 
     public override GameObject ShowPopup(PopupType type, Action<GameObject> onInit = null)
     {

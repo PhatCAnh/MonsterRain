@@ -25,6 +25,7 @@
 	public enum EnemyId
 	{
 		BasicEnemy,
+		SandEgg,
 	}
 
 	public enum ItemDropId

@@ -17,23 +17,22 @@ public class Bullet : MonoBehaviour
 
    private EnemyController enemyController => Singleton<EnemyController>.instance;
 
-   void Update()
+   public void Moving(float deltaTime)
    {
-       //transform.right = rb.velocity;
-       transform.Translate(_speed * Time.deltaTime * _direction.normalized);
+       transform.Translate(_speed * deltaTime * _direction.normalized);
    }
 
-   private void FixedUpdate()
+   public bool CheckTouch()
    {
        var enemy = enemyController.CheckTouchEnemy(transform.position, size);
        if(enemy != null)
        {
            enemy.TakeDamage(_atk);
-           //UIController.Instance.AddScore();
-           Destroy(gameObject);
+           return true;
        }
+       return false;
    }
-
+   
    public void Init(Vector3 direction, float speed, int atk)
    {
        this._direction = direction;
@@ -46,14 +45,4 @@ public class Bullet : MonoBehaviour
    {
        Gizmos.DrawWireSphere(transform.position, size);
    }
-   // private void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if(collision.tag == "Target")
-    //     {
-    //         Destroy(gameObject);
-    //         Destroy(collision.gameObject);
-    //
-    //         UIController.Instance.AddScore();
-    //     }
-    // }
 }

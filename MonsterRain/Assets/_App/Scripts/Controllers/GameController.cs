@@ -10,6 +10,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Threading;
 using _App.Scripts;
+using _App.Scripts.Controllers;
 using _App.Scripts.Datas;
 using _App.Scripts.Enums;
 using _App.Scripts.Models;
@@ -69,7 +70,7 @@ public class GameController : Controller<GameApp>
 		
 		gun.Init(gunData.dataConfig);
 		
-		Instantiate(app.resourceManager.GetMap(MapId.Fall));
+		Singleton<MapController>.instance.SpawnMap(MapId.Fall);
 	}
 	
 	public void StartGame()

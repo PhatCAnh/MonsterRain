@@ -12,6 +12,7 @@ public class ConfigManager : ConfigManagerBase
     public ConstConfigTable constConfig;
     public GunDataConfigTable gunDataConfig;
     public EnemyDataConfigTable enemyDataConfig;
+    public MapDataConfigTable MapDataConfig;
 
     //private bool _isCanLoadRemoteConfig = false;
     public void Init()
@@ -20,6 +21,7 @@ public class ConfigManager : ConfigManagerBase
         Register(out constConfig);
         Register(out gunDataConfig);
         Register(out enemyDataConfig);
+        Register(out MapDataConfig);
         LoadConfigs();
   }
 

@@ -85,6 +85,7 @@ namespace Views.Gun
 			}
 			bulletController.SpawnBullet(_bulletId, _firePoint.transform.position, direction, dataConfig.bulletSpeed, dataConfig.atk);
 			_animSkin.SetTrigger("Shot");
+			Singleton<MainUIInGame>.instance.Shot();
 			StepState();
 		}
 

@@ -51,6 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txtNumberAmmo: {fileID: 5359228560691758311}
   _txtNumberMagazine: {fileID: 2353574870792451269}
+  _imgGun: {fileID: 835581715304634294}
+  _animGun: {fileID: 779331495497194996}
 --- !u!1 &2251011089160375494
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,6 +64,7 @@ GameObject:
   - component: {fileID: 5104731265338464931}
   - component: {fileID: 5083022959799732952}
   - component: {fileID: 835581715304634294}
+  - component: {fileID: 779331495497194996}
   m_Layer: 5
   m_Name: Ammo Icon
   m_TagString: Untagged
@@ -78,7 +81,7 @@ RectTransform:
   m_GameObject: {fileID: 2251011089160375494}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6989629305789098648}
@@ -86,7 +89,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 17}
-  m_SizeDelta: {x: 124.7535, y: 103.11}
+  m_SizeDelta: {x: 156.25, y: 62.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5083022959799732952
 CanvasRenderer:
@@ -116,9 +119,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1407528748, guid: aeec02a63d6722c47bdd2243f2179524, type: 3}
+  m_Sprite: {fileID: -423599116, guid: 57c89a5efa72d1d458412ef14cb71bae, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -126,6 +129,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &779331495497194996
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2251011089160375494}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bbc469beacc3b824ca981779c5af5474, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3125831468865401347
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _App.Scripts;
 using _App.Scripts.Controllers;
 using _App.Scripts.Models;
 using ArbanFramework;
 using ArbanFramework.MVC;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class EnemyView : View<GameApp>
 {
@@ -25,8 +27,6 @@ public class EnemyView : View<GameApp>
 
     //public bool isAlive => model.currentHealthPoint > 0;
     
-    
-    
     private EnemyController enemyController => Singleton<EnemyController>.instance;
 
     protected override void OnViewInit()
@@ -39,8 +39,16 @@ public class EnemyView : View<GameApp>
     {
         this.model = model;
     }
-    
-    
+
+    public virtual void Fall(float deltaTime)
+    {
+        transform.Translate(model.moveSpeed * deltaTime * Vector2.down);
+    }
+
+    public virtual bool CheckTouchBase()
+    {
+        return transform.position.x < -5 + size;
+    }
 
     private void OnDrawGizmosSelected()
     {

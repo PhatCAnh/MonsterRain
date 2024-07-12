@@ -1,2 +1,3 @@
 ﻿Id,Name,MoveSpeed,HealthPoint
 BasicEnemy,BasicEnemy,2,4
+SandEgg,SandEgg,2,10

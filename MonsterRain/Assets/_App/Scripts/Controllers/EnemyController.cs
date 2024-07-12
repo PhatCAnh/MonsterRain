@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using _App.Scripts.Enums;
 using _App.Scripts.Models;
 using ArbanFramework;
 using ArbanFramework.MVC;
+using MR;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 namespace _App.Scripts.Controllers
 {
 	public class EnemyController : Controller<GameApp>
 	{
-		[SerializeField] private GameObject _enemyPrefab;
-		
-		[SerializeField] private Sprite[] targetSprites;
-		
 		private List<EnemyView> _listEnemyInGame = new List<EnemyView>();
+
+		private MapController mapController => Singleton<MapController>.instance;
 
 		private void Awake()
 		{
@@ -26,26 +28,34 @@ namespace _App.Scripts.Controllers
 			Singleton<EnemyController>.Unset(this);
 		}
 
-		public EnemyView SpawnEnemy()
+		private void FixedUpdate()
 		{
-			var newTarget = Instantiate(_enemyPrefab);
+			var time = Time.deltaTime;
+			foreach (var enemy in _listEnemyInGame.ToList())
+			{
+				enemy.Fall(time);
+				if (enemy.CheckTouchBase())
+				{
+					mapController.TouchEnemy(enemy);
+				}
+			}
+		}
 
-			float randomX = Random.Range(-15, 15);
+		public void SpawnEnemy(EnemyId id)
+		{
+			var data = GetDataEnemy(id);
 
-			newTarget.transform.position = new Vector3(randomX, transform.position.y);
-			int randomIndexSprite = Random.Range(0, targetSprites.Length);
-			newTarget.GetComponent<SpriteRenderer>().sprite = targetSprites[randomIndexSprite];
-			var enemy = newTarget.GetComponent<EnemyView>();
+			var view = data.Item1;
 
-			var dataConfig = app.configs.enemyDataConfig.GetData(EnemyId.BasicEnemy);
+			var dataConfig = data.Item2;
+
+			view.transform.position = new Vector3(Random.Range(-15, 15), 10);
 
 			var model = new EnemyModel(dataConfig.moveSpeed, dataConfig.healthPoint);
 			
-			enemy.Init(model);
+			view.Init(model);
 			
-			_listEnemyInGame.Add(enemy);
-			
-			return enemy;
+			_listEnemyInGame.Add(view);
 		}
 
 		public EnemyView GetNearestEnemy(Vector2 position)
@@ -93,6 +103,15 @@ namespace _App.Scripts.Controllers
 			// {
 			// 	enemy.wave.monsterInWave.Remove(enemy);
 			// }
+		}
+
+		private (EnemyView, EnemyDataConfig) GetDataEnemy(EnemyId id)
+		{
+			var prefab = Instantiate(app.resourceManager.GetEnemy(id)).GetComponent<EnemyView>();
+			
+			var dataConfig = app.configs.enemyDataConfig.GetData(id);
+
+			return (prefab, dataConfig);
 		}
 	}
 }

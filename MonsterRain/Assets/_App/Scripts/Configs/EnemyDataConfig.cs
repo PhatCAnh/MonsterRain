@@ -2,8 +2,7 @@
 using _App.Scripts.Datas;
 using _App.Scripts.Enums;
 using ArbanFramework.Config;
-namespace MR
-{
+
 	public class EnemyDataConfig : IConfigItem
 	{
 		public EnemyId id { get; private set; }
@@ -34,4 +33,4 @@ namespace MR
 			return GetConfig(id.ToString());
 		}
 	}
-}
+
