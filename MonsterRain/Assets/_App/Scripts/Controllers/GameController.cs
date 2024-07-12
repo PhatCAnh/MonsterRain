@@ -56,7 +56,7 @@ public class GameController : Controller<GameApp>
 
 	public void LoadMap()
 	{
-		app.resourceManager.ShowPopup(PopupType.Main);
+		app.resourceManager.ShowPopup(PopupType.MainInGame);
 
 		var character = Instantiate(app.resourceManager.GetCharacter(CharacterId.Main)).GetComponent<Character>();
 
@@ -76,6 +76,14 @@ public class GameController : Controller<GameApp>
 	public void StartGame()
 	{
 		ChangeScene(GameConst.nameScene_Game, LoadMap);
+	}
+	
+	public void InitGame()
+	{
+		ChangeScene(GameConst.nameScene_Main, () =>
+		{
+			app.resourceManager.ShowPopup(PopupType.MainOutGame);
+		});
 	}
 	
 	//chuyen qua gunController

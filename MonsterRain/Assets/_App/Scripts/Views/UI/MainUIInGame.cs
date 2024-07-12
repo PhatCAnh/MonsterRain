@@ -37,7 +37,7 @@ public class MainUIInGame : View<GameApp>, IPopup
             _txtNumberMagazine.text = $"{model.currentAmmoInMagazine}";
         }, new DataChangedValue(CharacterModel.dataChangedEvent, "mainGun-Shot", app.models.characterModel));
         
-        var model = app.models.MapModel;
+        /*var model = app.models.MapModel;
 
         _sldHealthBar.maxValue = model.maxHp;
         
@@ -45,7 +45,7 @@ public class MainUIInGame : View<GameApp>, IPopup
         {
             control.value = model.currentHp;
             _txtHealthPoint.text = $"{model.currentHp} / {model.maxHp}";
-        }, new DataChangedValue(MapModel.dataChangedEvent, nameof(MapModel.currentHp), app.models.MapModel));
+        }, new DataChangedValue(MapModel.dataChangedEvent, nameof(MapModel.currentHp), app.models.MapModel));*/
     }
 
     public void Shot()

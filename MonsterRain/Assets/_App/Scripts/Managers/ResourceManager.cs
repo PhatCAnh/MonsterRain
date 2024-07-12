@@ -48,7 +48,9 @@ public class ResourceManager : UIManagerBase<PopupType>
     private Dictionary<ItemDropId, GameObject> _itemDropDic;
     
 
-    [SerializeField] private GameObject _mainUIPopupPrefab;
+    [SerializeField] private GameObject _mainUIInGame;
+    
+    [SerializeField] private GameObject _mainUIOutGame;
 
     private void Awake()
     {
@@ -65,7 +67,8 @@ public class ResourceManager : UIManagerBase<PopupType>
     {
         InitItemDic();
 
-        RegisterPopup(PopupType.Main, _mainUIPopupPrefab);
+        RegisterPopup(PopupType.MainInGame, _mainUIInGame);
+        RegisterPopup(PopupType.MainOutGame, _mainUIOutGame);
     }
 
     private void InitItemDic()

@@ -13,6 +13,7 @@ namespace _App.Scripts.Controllers
         private Cooldown _cdSpawnEnemy;
         
         private EnemyController enemyController => Singleton<EnemyController>.instance;
+        private GameController gameController => Singleton<GameController>.instance;
 
         private MapView _map;
         
@@ -34,6 +35,8 @@ namespace _App.Scripts.Controllers
 
         private void Update()
         {
+            if (gameController.isStop) return;
+            
             var time = Time.deltaTime;
             HandleLogicUpdate(time);
         }

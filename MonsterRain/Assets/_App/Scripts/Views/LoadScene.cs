@@ -10,6 +10,6 @@ public class LoadScene : MonoBehaviour
     private void Start()
     {
         var load = SceneManager.LoadSceneAsync("scn_Main", LoadSceneMode.Single);
-        load.completed += o => Singleton<GameController>.instance.StartGame();
+        load.completed += o => Singleton<GameController>.instance.InitGame();
     }
 }

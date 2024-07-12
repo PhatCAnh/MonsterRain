@@ -1,6 +1,7 @@
 public enum PopupType
 {
-    Main,
+    MainInGame,
+    MainOutGame,
     WinGame,
     LoseGame,
     Notification,
